@@ -1,0 +1,1200 @@
+Our ref:cn001789557
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Collections.ObjectModel;
+
+namespace cSharpTutorialContinuation2
+{
+    class ennumTutorial
+    {
+        // different between types and types MEMBER
+        // class, struct, enums, interface, delegates are called types, types can only have 2 access modifiers which are public and internal while 
+        // fields, method, properties, constructor are called type members can have all the 5 access modifier e.g. public, private, internal,  protected internal, protected
+        // region are used to organise our code uses #region plus name e.g. #fieldregion, and #endregion
+        //private member is only accessible only within its containing class, public memeber is access anywhere 
+        // Protected is access within its own class and class that inherit/ derived from the class
+
+
+
+        // reflection is the inspecting of assemblies metadata at a runtime. It is used to find all types in assemblies e.g. methods, types, types members e.g. properties, constructors etc
+        // Uses of Reflection 
+        // 1) Early binding: this is use when u ve the details or information or knowledge about the class at compile time by creating the instance of it e.g. create a Customer class and its member then use the 
+        // the class in main method such as Customer c1 = new Customer();
+        //2) Late Binding: Is when u dont info or details at a complile time then we can use reflection to dynamic create instance of a type
+        //3) Reflection allows us to use code that is not available at compile time
+        // different between early and late binding+-
+        // Early binding can flag errors at compile time while late binding has a risk if run time exception 
+        // Early binding is better for performance and always prefer over late binding. Late bunding only works with an object that are nt available at  compile time
+
+        public class ReflectionExample
+        {
+            string reflectName;
+            int reflectNumber;
+
+            public void getReflction()
+            {
+                Console.WriteLine("reflection is good if you need info about your assembly");
+
+
+            }
+        }
+        // Generic allow us to design class and method decoupled from the data type. It makes ur code independently. It prevents boxing and unboxing. U can make types e..g class, struct etc and methods as well to be generic  
+        // Boxing is converting of value type to reference type and the reverse is called unboxing. Its converting OF TYPE OBJECT to something like int 
+        // example of generic below. U can use generic both on class and method
+
+        // public class GenericExample<A> generic on a clASS
+        public class GenericExample
+        {
+            public static void checkUp<A>(A time, A day)
+            {
+                Console.WriteLine("Your appointment time {0} and day is {1} ", time, day);
+            }
+        }
+
+        // Optional Parameter. There are 4 ways of making parameter optional which are :Use parameter array, method overloading,  specifying parameter default and use optionAtrribute that is 
+        // is present in System.InteroService namespace.parameter has to be last on the parameter declaration E.g of parameter array to make parameter optional below
+        public class OptionalParameterArray
+        {
+            // parameter method
+            //public static void ParaMethod(string paraName, string paraLastName, params object[] Optional)
+            //{
+            //    string FullName = paraName + "  " + paraLastName;
+            //    if (Optional != null)
+            //    {
+            //        foreach (string a in Optional)
+            //        {   
+            //            FullName += Optional;
+            //            Console.WriteLine("Option names added " + FullName);
+            //        }
+            //    }}
+            // Overloading method of making parameter optional
+            //public static void overloadingMethod(string paraName, string paraLastName)
+            //{
+            //    overloadingMethod(paraName,paraLastName, null);
+            //}
+            //     public static void overloadingMethod(string paraName, string paraLastName, string [] Optional)
+            //{
+            //    string FullName = paraName + "  " + paraLastName;
+            //    if (Optional != null)
+            //    {
+            //        foreach (string a in Optional)
+            //        {
+            //            FullName += Optional;
+            //            Console.WriteLine("Option names added " + FullName);
+            //        }
+            //    }
+            //}
+            // public static void overloadingMethod(string paraName, string paraLastName, string [] Optional)
+            //{
+            //    string FullName = paraName + "  " + paraLastName;
+            //    if (Optional != null)
+            //    {
+            //        foreach (string a in Optional)
+            //        {
+            //            FullName += Optional;
+            //            Console.WriteLine("Option names added " + FullName);
+            //        }
+            //    }
+            //}
+            // Making parameter Optional  by specifying the parameter default
+            //public static void parameterDefault(string paraName, string paraLastName, string[] Optional = null)
+            //{
+            //    string FullName = paraName + "  " + paraLastName;
+            //    if (Optional != null)
+            //    {
+            //        foreach (string a in Optional)
+            //        {
+            //            FullName += Optional;
+            //            Console.WriteLine("Option names added " + FullName);
+            //        }
+            //    }
+            //    Console.WriteLine("Option names added " + FullName);
+            //}
+
+            public static void OptionalAttribute(string paraName, string paraLastName, [Optional] string[] Optional)
+            {
+                string FullName = paraName + "  " + paraLastName;
+                if (Optional != null)
+                {
+                    foreach (string a in Optional)
+                    {
+                        FullName += Optional;
+                        Console.WriteLine("Option names added " + FullName);
+                    }
+                }
+                Console.WriteLine("Option names added " + FullName);
+            }
+
+
+
+            // code snippet are of 3 types expansion, surrounding and refactoring or refactor
+
+            // Dictionary is the collection of key and value. It is present in System.Collection.Generic Namespace E.g of dictionary below
+            public class Student : IComparable<Student>
+            {
+
+
+                public int studentID { get; set; }
+                public string studentName { get; set; }
+                public int studentAge { get; set; }
+                public string studentAddress { get; set; }
+
+                public int Undergraduatestudent_id { get; set; }
+                public string Undergraduatestudent_name { get; set; }
+                public int Undergraduatestudent_age { get; set; }
+                public string Undergraduatestudent_address { get; set; }
+                public int CompareTo(Student obj)
+                {
+                    return this.Undergraduatestudent_name.CompareTo(obj.Undergraduatestudent_name);
+                }
+
+                // Queue collection class is use as first in first out. Just like a queue on a normal day
+
+                public class Food
+                {
+                    public string meal { get; set; }
+                    public string fruit { get; set; }
+                    public int timeToeat { get; set; }
+                }
+
+                Food food = new Food
+                {
+                    meal = "Porridge",
+                    fruit = "Banana",
+                    timeToeat = 8
+                };
+                Food food1 = new Food
+                {
+                    meal = "Yogurt",
+                    fruit = "Apple",
+                    timeToeat = 12
+                };
+                Food food2 = new Food
+                {
+                    meal = "Spagetti Bolognise",
+                    fruit = "Pears",
+                    timeToeat = 16
+                };
+                // Generic stack it last in first out. it just like storing a plate the last u put in the first u take out
+                public class GenericStackTutorial
+                {
+                    public string bedding { get; set; }
+                    public string mattress { get; set; }
+                    public int mattressSize { get; set; }
+                }
+                GenericStackTutorial genericStack = new GenericStackTutorial
+                {
+                    bedding = "Pillow case",
+                    mattress = "Double bed",
+                    mattressSize = 45
+                };
+                GenericStackTutorial genericStack1 = new GenericStackTutorial
+                 {
+                    bedding = "Bed sheet ",
+                    mattress = "Single bed",
+                    mattressSize = 35
+                };
+                GenericStackTutorial genericStack2 = new GenericStackTutorial
+                {
+                    bedding = "duvet cover  ",
+                    mattress = "King size bed",
+                    mattressSize = 65
+                };
+                // Process is what the operating system use to facilitate the excution of a program by providing the
+                // resources required. each process has its own process id asscociate with it.
+                //Thread is a light weight process that has at least one thread which is common called main thread which actually executes the application code. A
+                // A single process can have multiple threads. All the related classes are presented in system.Threading namespace.
+                // Advantages of multitreading
+                // To maintain a responsive user interface (b) To make best use of processor time while waiting for I/O operation to complete
+                 //(c) To split large CPU bound tasks to be processed simultaneously on a machine
+                // DisAdvantages of multitreading
+                //On a single processor/core machne threading can affect performance negatively as there is overhead involved with contextext-switching
+                //have to write more lines of code to accomplish the same task (c) Multithreading application are difficult to write, debug and maintain
+                // Only use multithreading when advantages outweigh the disadvantags
+
+                static void Main(string[] args)
+
+                {  // Generic stack tutorial
+                    Stack<GenericStackTutorial> gst = new Stack<GenericStackTutorial>();
+                 //   gst.Push(genericStack2); // push is use to add 
+                    gst.Pop(); // pop uses to remove which is the last object added
+                    gst.Peek(); // Peek return the object at the begning without removing them
+               //     gst.Contains(genericStack); // contain uses to check if something is available or exist
+                   
+                    
+                    // Queue is first in first out just like a normal queue at ATM or something
+                    // using food class in Queue tutorial
+                    Queue<Food> foodTime = new Queue<Food>();
+                    foodTime.Peek(); // Peek return the object at the begning without removing them
+                    // foodTime.Enqueue(food);// Enqueue uses to add
+                    // foodTime.Dequeue(food1);// Dequeue uses to remove just one object, return the object at the begning with removing them
+                    //foodTime.Contains(food2);
+                    // foodTime.Count(fd =>  fd.fruit.Contains("b"));
+                    //Part of class use in list tutorial below
+                    Student undergraduateStudent = new Student()
+                    {
+                        Undergraduatestudent_name = "Yemo",
+                        Undergraduatestudent_age = 25,
+                        Undergraduatestudent_id = 101,
+                        Undergraduatestudent_address = "London"
+                    };
+                    //Part of class use in list tutorial below
+                    Student undergraduateStudent1 = new Student()
+                    {
+                        Undergraduatestudent_name = "Folake",
+                        Undergraduatestudent_age = 35,
+                        Undergraduatestudent_id = 102,
+                        Undergraduatestudent_address = "Newcastle"
+                    };
+                    //Part of class use in list tutorial below
+                    Student undergraduateStudent2 = new Student()
+                    {
+                        Undergraduatestudent_name = "Gbenga",
+                        Undergraduatestudent_age = 45,
+                        Undergraduatestudent_id = 103,
+                        Undergraduatestudent_address = "Grays"
+                    };
+
+                    // Dictionary using student class
+                    Student student = new Student()
+                    {
+                        studentID = 1,
+                        studentName = "Bayo",
+                        studentAge = 25,
+                        studentAddress = "Derby"
+                    };
+                    Student student1 = new Student()
+                     {
+                         studentID = 2,
+                         studentName = "Ayo",
+                         studentAge = 25,
+                         studentAddress = "London"
+                     };
+                    Student student2 = new Student()
+                   {
+                       studentID = 3,
+                       studentName = "Shola",
+                       studentAge = 25,
+                       studentAddress = "Essex"
+                   };
+                    //List can use to create a collection of any type. It can grow in size automatically unlike array which cannot. 
+                    // Object store in list can be access by index. List are generics and constructed types and size manage is done automatically so ideal for linear collections. 
+                    
+                    List<Student> listVersion = new List<Student>();
+                    listVersion.Add(student);
+                    listVersion.Add(student1);
+                    listVersion.Add(student2);
+
+                    //using index to access info store in the object
+                    Student access = listVersion[1];
+                    Console.WriteLine("student id is {0}, student name is {1}, student age is {2} and student address is {3}", access.studentID, access.studentName, access.studentAge, access.studentAddress);
+                    List<Student> undergrad = new List<Student>();
+                    undergrad.Add(undergraduateStudent);
+                    undergrad.Add(undergraduateStudent1);
+                    undergrad.Add(undergraduateStudent2);
+                    listVersion.Insert(1, student);
+                    listVersion.IndexOf(student1, 0, 3);
+                    Console.WriteLine(listVersion.IndexOf(student1, 0, 3));
+                    listVersion.GetRange(0, 2);
+                    if (listVersion.Contains(student2))
+                    {
+                        Console.WriteLine("Exist");
+                    }
+                    listVersion.Exists(cus => cus.studentAddress.StartsWith("E"));
+                    listVersion.Find(custo => custo.studentID > 1); //Find find the first match
+                    listVersion.FindLast(custo => custo.studentID > 1);  //Find find the last match
+                    listVersion.FindAll(custo => custo.studentID > 1);  //Find find the all match
+                    List<Student> allStudent = new List<Student>();
+                    foreach (Student allS in allStudent)
+                    {
+                        Console.WriteLine(" studentID is {0}, studentID is {1},studentID is {2},studentID is {3}", allS.studentID, allS.studentName, allS.studentAge, allS.studentAddress);
+                    }
+                    listVersion.FindIndex(0, 2, custo => custo.studentID > 1);
+                    listVersion.AddRange(undergrad);
+                    List<Student> range = listVersion.GetRange(3, 2);
+                    listVersion.InsertRange(1, listVersion);
+                    listVersion.RemoveRange(0, 2);
+                    listVersion.RemoveAt(4);
+                    listVersion.Remove(student1);
+                    listVersion.RemoveAll(cus => cus.studentID > 2);
+                    listVersion.RemoveAll(under => under.studentName == "Yomi"); // remove all object
+                    listVersion.RemoveAll(under => under.Undergraduatestudent_id == 2);
+                    listVersion.TrueForAll(cus => cus.studentAge > 20);
+                    int capacity = listVersion.Capacity; // capacity represent the size of data in the object
+                    Console.WriteLine(capacity);
+                    listVersion.TrimExcess(); //TrimExcess set the capacity to the actual of elements in the object if the number is less than the number the object is holding or the threshold value
+                    ReadOnlyCollection<Student> readonlyStudent = listVersion.AsReadOnly();
+                    readonlyStudent.Contains(student);
+                    // readonlyStudent.Count(cus => cus.studentAge < 10);
+
+                    // using comparison to sort 
+                    // Comparison<Student> comparison = new Comparison<Student>(ComparisonStudentClass);
+                    // listVersion.Sort(comparison);
+
+                    //public static int ComparisonStudentClass(Student x, Student y)
+                    //{
+                    //    return x.studentID.CompareTo(y.studentID);
+                    //}
+                    // Another way of using comparison without long code is 
+                    // listVersion.Sort((a, b) => a.studentAge.CompareTo(b.studentAge));
+
+
+
+
+                    List<int> numbers = new List<int>() { 1, 4, 2, 5, 8, 7, 3, 23 };
+                    Console.WriteLine(numbers);
+
+                    numbers.Sort();// sort sort things out in ascending order
+                    numbers.Reverse(); //sort sort things out in descending order
+                    // sorting list using object e.g. class, u need to inheret Icomparable for the object itself 
+                    // e.g. class but u need to inherit Icomparer with the field in the class
+                    //    sortByID sort = new sortByID();
+                    //   listVersion.Sort(sort);
+                    //} 
+                    //   public class sortByID : IComparer<Student>
+                    //    {
+                    //       public int CompareTo(Student a, Student b)
+                    //    {
+                    //        return a.studentID.CompareTo(b.studentID);
+                    //    }
+                    //   }
+
+
+                    Dictionary<int, Student> studentDetails = new Dictionary<int, Student>();
+                    studentDetails.Add(student.studentID, student);
+                    studentDetails.Add(student1.studentID, student1);
+                    studentDetails.Add(student2.studentID, student2);
+                    // foreach(KeyValuePair<int,Student> studentRegister in studentDetails)
+                    //anoother way of doing it is 
+                    //if (studentDetails.ContainsKey(12))
+                    //{ Console.WriteLine("The key value is {0}", 12);
+                    //}
+                    //else
+                    //{ Console.WriteLine("the value does not exist"); }
+                    // Console.WriteLine(studentDetails.Count());
+                    studentDetails.Count(kvp => kvp.Value.studentID > 0);
+                    studentDetails.ContainsValue(student1);
+
+
+                    foreach (var studentRegister in studentDetails)
+                    {
+                        Console.WriteLine(studentRegister);
+                    }
+
+                    Student studentSearch;
+                    if (studentDetails.TryGetValue(1, out studentSearch))
+                    {
+                        Console.WriteLine("Show student with student ID {0}, student name {1}, student age {2}, and  student address {3}   available ", studentSearch.studentID, studentSearch.studentName, studentSearch.studentAge, studentSearch.studentAddress);
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Student not available");
+
+                    }
+
+                    //  Convert array to list
+                    Student[] array2list = new Student[2];
+                    array2list[0] = student;
+                    array2list[1] = student1;
+
+                    List<Student> mystudent = array2list.ToList();
+                    foreach (Student stu in mystudent)
+                    {
+                        Console.WriteLine("", stu.studentID, stu.studentName, stu.studentAddress, stu.studentAge);
+                    }
+                    //Convert array to list
+                    List<Student> list2array = new List<Student>();
+                    list2array.Add(student);
+                    list2array.Add(student1);
+                   Student[] converterlist2array = list2array.ToArray();
+                    Student[] mylist2array = new Student[2];
+                    foreach (Student st in mylist2array)
+                    {
+                        Console.WriteLine("", st.studentID, st.studentName, st.studentAddress, st.studentAge);
+                    }
+                    // Conver list to dictionary
+                    List<Student> studentArray = new List<Student>();
+                    Dictionary<int, Student> arrayConversion = studentArray.ToDictionary(studentConversion => studentConversion.studentID, studentConversion => studentConversion);
+
+                    //for remove one item 
+                    //arrayConversion.Remove(2);
+                    // remove all item, then use clear
+                    //  arrayConversion.Clear();
+                    foreach (KeyValuePair<int, Student> kvp in arrayConversion)
+                    {
+                        Console.WriteLine("", kvp.Key);
+
+                        Console.WriteLine("studentID is {0}, student Name is {1}, student age {2}, student {3} ", student.studentID, student.studentName, student.studentAge, student.studentAddress);
+                    }
+                    // Optional Parameter called
+                    // ParaMethod("Yomi ", "Abass");
+                    // Overloading method of making parameter optional
+                    //  overloadingMethod("Perez", "John", "Ben");
+                    //   parameterDefault("Perez", "John", "Ben");
+                    OptionalAttribute("Perez", "John", new string[] { "Ben", "Soko" });
+
+
+                    GenericExample.checkUp<string>("12", "12");
+
+                    // reflection
+                    //    Type type = Type.GetType("cSharpTutorialContinuation2.ReflectionExample");
+                    Type type = typeof(ReflectionExample);
+                    MemberInfo[] members = type.GetMembers();
+
+                    foreach (MemberInfo member in members)
+                    {
+                        Console.WriteLine("This is method reflection example" + member);
+                    }
+                    Console.WriteLine();
+                    PropertyInfo[] properties = type.GetProperties();
+                    foreach (PropertyInfo property in properties)
+                    {
+                        Console.WriteLine("This is method properies example");
+                    }
+                    
+
+
+
+                    // enum
+                    string[] costo = (string[])Enum.GetNames(typeof(customerType));
+                    foreach (string cus in costo)
+                    {
+                        Console.WriteLine("ennum details");
+                    }
+                    Customer[] customer = new Customer[6];
+
+                    customer[0] = new Customer
+                    {
+                        name = "bola",
+                        CustomerType = customerType.regularCustomer
+                    };
+                    customer[1] = new Customer
+                    {
+                        name = "deji",
+                        CustomerType = customerType.registerCustomer
+                    };
+                    customer[2] = new Customer
+                    {
+                        name = "shola",
+                        CustomerType = customerType.corporateClient
+                    };
+                    customer[3] = new Customer
+                    {
+                        name = "fola",
+                        CustomerType = customerType.shortTermClient
+                    };
+
+                    //foreach (Customer cust in customer)
+                    //{
+                    //    Console.WriteLine("{0}, {1}", cust.name, customerList(cust.CustomerType));
+                    //}
+                }
+
+
+                public class Customer
+                {
+                    public string name { get; set; }
+                    public customerType CustomerType { get; set; }
+                }
+                public enum customerType
+                {
+                    regularCustomer,
+                    registerCustomer,
+                    corporateClient,
+                    shortTermClient
+                };
+
+                public static string customerList(customerType CustomerType)
+                {
+                    switch (CustomerType)
+                    {
+                        case customerType.regularCustomer:
+                            return "regular customer";
+                        // Console.WriteLine( "regular customer");
+                        //break;
+                        case customerType.registerCustomer:
+                            return "register customer";
+                        //Console.WriteLine("register customer");
+                        // break;
+                        case customerType.corporateClient:
+                            return "corporateClient customer";
+                        // Console.WriteLine("register customer");
+                        // break;
+                        case customerType.shortTermClient:
+                            return "shortTermClient customer";
+                        //Console.WriteLine("register customer");
+                        //break;
+                        default:
+                            return " invalid register customer";
+                        //Console.WriteLine("register customer");
+                        //break;
+                    }
+                }
+            }
+            // Partial class is when u divide a class into 2 different physical file. Advantages are: Allow to separate designer generated code from developer code, it also helps when working a large project for
+            // a developer to work simultaneously or on a each partial class. E.g of partial class below
+            // Partial class must ve same access modifier on the same physical files, if any part of partial class is considered abstract or sealed all the entire partial class is consider abstract and sealed
+            // if one part of the partial class inherit a class the whole entire partial class will inherit
+            // Any member that is declare in one part of the partial class is available for the entire partial class
+
+            public partial class PartialClassTutorial
+            {
+                public string email { get; set; }
+                public string password { get; set; }
+                partial void accessEmail();
+            }
+
+            // the other part of the partial code is in PartialClass
+            public class AccessModifier
+            {
+                protected string Name;
+
+            }
+            public class DerrivedAccess : AccessModifier
+            {
+                public void checkProtectedAccessModifier()
+                {// different between types and types MEMBER
+                    // class, struct, enums, inetrface, delegates are called types memeber can only have 2 access modifiers which are public and internal. For Type the default is internal meaning if u dont identify is while 
+                    // For type member it is private by default
+                    // fields, method, properties, constructor are called type members can have all the 5 access modifier e.g. public, private, internal,  protected internal, protected
+                    // region are used to organise our code uses #region plus name e.g. field, and #endregion
+                    //private member is only accessible only within its containing class, public memeber is access anywhere 
+                    // Protected is access within its own class and class that inherit/ derived from the class
+                    // Assembly in c# is of 2 types .dll is for class and .exe is 4 console application
+                    //internal access modifier its only access within its own assembly while protected internal is access within its own assembly or project and any class that
+                    // derived from the containing assemblies
+                    //is Operator :- used to check whether the run-time type of an object is compatible with a given type.
+                    //as Operator :- used for conversion between compatible types.
+
+                    //different between toString and convert.ToString is that convertToString can handle null while toString cannot otherwise it throw reference exception error
+                    // System.string is immutuable, it present using System, offer less perfomance but StringBuilder is mutable, it present using System.Text and offer better performance than system.String
+
+
+
+                    DerrivedAccess d = new DerrivedAccess();
+                    d.Name = "Dawn";
+                    Console.WriteLine("my name is {0}", Name);
+                    // another of access base class 
+                    base.Name = "";
+                    this.Name = "";
+
+
+                }
+            }
+
+
+            // Attribute allow u to declare info to ur program and use this info at the runtime using reflection
+            // some of the pre- defined attrivute in .Net are obsolete use for type and type member that are out of date, 
+            // WebMethod use to expose a method in xml webservice method
+            // serializable uses to indicate when class can be serialized.
+            // e.g. obsolete
+            public class student
+            {// example of attribute U can use either just Obsolete or ObsoleteAttribute it still the same
+                [ObsoleteAttribute("Please use this method studentDetails(string yourname, string LastName, int year)")]
+                public static void studentDetails(string yourname, int year)
+                {
+                    Console.WriteLine("student name {0}, {1}", yourname, year);
+
+                }
+                public static void studentDetails(string yourname, string LastName, int year)
+                {
+                    Console.WriteLine("student name {0}, {1}, {2}", yourname, LastName, year);
+
+                }
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace cSharpTutorialContinuation
+{
+    class Program2
+    {
+        static void Main(string[] args)
+        {
+            Customer[] customer = new Customer[4];
+
+            customer[0] = new Customer
+            {
+                name = "bola",
+                CustomerType = customerType.regularCustomer
+            };
+            customer[1] = new Customer
+           {
+               name = "deji",
+               CustomerType = customerType.registerCustomer
+           };
+            customer[2] = new Customer
+           {
+               name = "shola",
+               CustomerType = customerType.corporateClient
+           };
+
+            foreach (Customer cust in customer)
+            {
+                Console.WriteLine("{0}, {1}", cust.name, customerList(cust.CustomerType));
+            }
+        }
+       
+       
+        public class Customer
+        {
+            public string name { get; set; }
+            public customerType CustomerType { get; set; }
+        }
+            public enum customerType
+        {
+            regularCustomer,
+            registerCustomer,
+            corporateClient,
+            shortTermClient
+        };
+   
+         public static string customerList(customerType CustomerType)
+         {
+           switch(CustomerType)
+           {
+             case customerType.regularCustomer:
+                   return "regular customer";
+                   // Console.WriteLine( "regular customer");
+                   //break;
+            case customerType.registerCustomer:
+                   return "register customer";
+                   //Console.WriteLine("register customer");
+                   // break;
+            case customerType.corporateClient:
+                   return "register customer";
+                  // Console.WriteLine("register customer");
+                   // break;
+            case customerType.shortTermClient:
+                   return "register customer";
+                   //Console.WriteLine("register customer");
+                   //break;
+               default:
+                   return "Unregister customer";
+                   //Console.WriteLine("register customer");
+                   //break;
+           }
+         }
+    }
+        
+}
+
+    
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace cSharpTutorialContinuation2
+{
+    public partial class PartialClassTutorial
+    {
+       // public string accessEmail()
+
+        
+        // partial void accessEmail()
+        //{
+        //    string authentication = email + " " + password; ;
+        //    Console.WriteLine("You have successfully login to your email using {0}", authentication);
+
+        //}
+    }
+    // Partial method is created using partial keyword, it only takes void return type, u ve to declare the definition first and then the implemetation
+    // The implementation of partial class is optional, Partial method is private by default, it does not ve access modifier, it signature or parameter must be the same,
+    //partial method must
+    // only be declare in partial class or struct, Partial method can only be implemented once. E.G of partial method above
+}
+
+namespace AssembyOne
+{
+    public class InternalAccessModifier
+    {
+        protected internal string sugar;
+        internal int numberOfSugar;
+
+        public static void taste()
+        {
+            InternalAccessModifier i = new InternalAccessModifier();
+            i.sugar = "Granulated Sugar";
+            i.numberOfSugar = 12;
+           
+
+        }
+
+    }
+    public class Sweet
+    {
+        private int amountOfSugar;
+        public void Sweetner()
+        {
+            InternalAccessModifier s = new InternalAccessModifier();
+            Sweet sw = new Sweet();
+            sw.amountOfSugar = 2;
+
+            s.numberOfSugar = 1;
+            s.sugar = "Sugar cane sugar";
+
+
+
+
+        }
+    }
+
+    //public partial class PartialClassTutorial
+    //{
+    //    public string accessEmail()
+    //    {
+    //        string Login = email + " " + password; ;
+    //        return "You have successfully login to your email";
+
+    //    }
+    //}
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.IO;
+using System.Threading.Tasks;
+
+namespace cSharpTutorial
+{
+    class details
+    {
+        static string lastName = "Ladokun";
+      private  string firstName;
+
+
+
+        public details(string _firstName)
+        {
+            firstName = _firstName;
+
+        }
+        public string FullName()
+        {
+            return lastName + " " + firstName;
+        }
+        public class Landlord
+        {
+            public string HouseType;
+            public int HouseRoom;
+            public int tenantNos;
+
+            public Landlord(string _HouseType, int room, int _tenantNos)
+            {
+                HouseType = _HouseType;
+                HouseRoom = room;
+                tenantNos = _tenantNos;
+            }
+            public Landlord(string familyType)
+            {
+                Console.WriteLine(familyType + "family number shouldnt be more than 5 ");
+            }
+            public void HouseOwnerDetails()
+            {
+                Console.WriteLine(HouseType + HouseRoom + tenantNos);
+            }
+        }
+        public class LandLady : Landlord
+        {
+            public LandLady() : base("House")
+            {
+                Console.WriteLine("this house is own by a woman");
+
+            }
+
+        }
+        // hidding clas
+        public class Hidden
+        {
+
+            public void hid()
+            {
+                Console.WriteLine("hide message");
+
+            }
+        }
+        public class HiddenClass : Hidden
+        {// add new keyword to hide
+            public new void hid()
+            {
+                Console.WriteLine("inherit message");
+
+            }
+        }
+        public class Polymorphrism
+        // Polymormerism allow us to the invoke the derived class by using the base to reference to the derived class at the runtime 
+        {
+            public int age;
+            public string Name;
+            public virtual void name()
+            {
+                Console.WriteLine(age + Name);
+
+            }
+        }
+
+        public class PolymorphrismHerit : Polymorphrism
+        {
+            public override void name()
+            {
+                base.name();
+            }
+            //    public override void name()
+            //{
+            //   // Console.WriteLine("Your name is " );
+
+            //}
+        }
+        public class Herit : Polymorphrism
+        {
+            public override void name()
+            {
+                Console.WriteLine("Name is " + "Yomi");
+
+            }
+        }
+        public class Registration
+        {//Properties
+            private string Name;
+            private int age = 18;
+            private string email;
+
+            public void setName(string _name)
+            {
+                if (string.IsNullOrEmpty(_name))
+                { Console.WriteLine("Name cannot be empty or null"); }
+                else
+                { this.Name = _name; }
+            }
+            public string getName()
+            {
+                return string.IsNullOrEmpty(this.Name) ? "No name" : this.Name;
+            }
+           
+            public void setEmail(string _email)
+            {
+                if (string.IsNullOrEmpty(_email))
+                {
+                    throw new Exception("email cannot be null");
+                }
+                else
+                {
+                    this.email = _email;
+                }
+            }
+            public string getEmail()
+            {
+                return (email.Contains("@")) ? this.email : "invalid email, pls check ur email address";
+                //"invalid email, pls check ur email address";
+                //    {
+                //        Console.WriteLine("valid email");
+                //    }
+                //    else { Console.WriteLine("invalid email, pls check ur email address");
+                //    }
+
+                //return _email;
+            }
+            public void setAge(int age)
+            {
+                if (age < 18)
+                {
+                    throw new Exception("Sorry age must be 18 and above");
+                }
+                else
+                {
+                    this.age = age;
+                }
+            }
+            public int getAge()
+            {
+                if (age < 18)
+                {
+                    throw new Exception("Sorry age must be 18 and above");
+                }
+                else
+                {
+                    return this.age;
+                }
+            }
+
+            // Better way of using and writing private properties in c#
+            public class myRegister
+            {
+                private string petName;
+                private int age;
+                private string newPet { set; get; }
+                public string pet
+                {
+                    set
+                    {
+                        if (string.IsNullOrEmpty(petName) && petName.length < 5)
+                        {
+                            throw new Exception("pet name needs to be identify");
+                        }
+                        else
+                            this.petName = value;
+                    }
+
+                    get { return this.petName; }
+
+                }
+                public int petAge
+                {
+                    set
+                    {
+                        if (age <= 0)
+                            throw new Exception("please pet age has to be minimun of 2 months old");
+                        else { this.age = value; }
+                    }
+                    get { return this.age; }
+                }
+            }
+            public struct createAccount 
+            {
+
+                public string password { set; get; }
+                public int myAge { set; get; }
+                public string username { set; get; }
+
+                //public createAccount(string _username, string _password, int _age)
+                //{
+                //    username = _username;
+                //    password = _password;
+                //    myAge = _age;
+                //}
+
+                public void setOpenAccount()
+                {
+                    Console.WriteLine("username is {0}, password {1} and age is {2}", username, password, myAge);
+                }
+
+            }
+
+            // different between class and struct
+            // diamond problem is when a class inherit from 2 classes which is impossible 
+            //- struct is a value type while class is reference type
+            //   struct is store in stack while class is store on the heap
+            // struct cannot have destructor while class can , struct cant inherit from from another class while class, both struct and class can inherit from interface 
+            // value types hold their values in memory where they are declared but reference type hold a reference to an object in memory
+            // value types are destroy immediately after scope is lost while only reference variable is destroy in reference type after scope is lost
+            // interface does not have definition or implementation it has to be void name();, no field e.g int age or string name, no access modifier e.g. public, protected etc. 
+            // if class inherit interface, it has to provide the implementation for that class. Class can inherit more than one interface at the same whereas class can oly inheirt one class
+            // we cannot create instance of interface e.g. ICustomer c = new ICustomer(); but u can create instance interface to point to customer it is inherit from e.g. Icustomer c = new Customer();
+
+            // Explicit implementation is used when u have a class inherit from 2 interfaces that have same method name. no access modifier 
+            //  will be used when implementing the method with class unless u make one of the method to be default.e.g. below
+            interface IName
+            {
+                void nam();
+            }
+            interface Ino
+            {
+                void nam();
+            }
+            public class K1 : IName, Ino
+            {
+                void IName.nam()
+                {
+                    Console.WriteLine("name ");
+                }
+                void Ino.nam()
+                {
+                    Console.WriteLine("name2 ");
+                }
+                // abstract class cannot implement itself, abstract member/ method doesnt neccesary have to be abstract member, 
+                // abstract cannot be sealed,
+                // its method has to be abstract as well. it needs a class that derive from it to provide the implement unless u want to 
+                // mark the class that inherit as absract as well. the class that privodes implementation  has use keyword override e.g.
+
+                public abstract class Phone
+                {
+                    public abstract void checkBalance();
+                    //another way is when the class implementing shld be void as well
+                    //public void checkBalance()
+                    //{ }
+
+                }
+                public class mobilePhone : Phone
+                {
+                    public override void checkBalance()
+                    {
+                        Console.WriteLine("check my phone");
+                    }
+                    //public void checkBalance()
+                    //{
+                    //    Console.WriteLine("check my phone");
+                    //}
+
+
+                }
+
+                // Different between abstract class and interface
+                // abstract uses abstract keyword while interface uses interface keyword
+                // astract is a class whereas interface is not 
+                //abstract can implement some of its memebers but interface cant
+                // abstract is private by default but interface is public by default
+                // abstract can have field e.g. int a but interface cant
+                // abstract can inherit from both interface and abstract class but interface can only inherit from interface
+
+                // ways to allow a classs 2 inherit from multiple classes using interface. e.g. below
+
+                public interface I1
+                {
+                    void clas();
+                }
+                public class clas1 : I1
+                {
+                    public void clas()
+                    {
+                        Console.WriteLine("print 1st class");
+                    }
+                }
+                interface I2
+                {
+                    void cla2();
+                }
+                public class clas2 : I2
+                {
+
+                    public void cla2()
+                    {
+
+                        Console.WriteLine("print second class");
+                    }
+                }
+                public class clas3 : I1, I2
+                {
+                    clas1 c1 = new clas1();
+                    clas2 c2 = new clas2();
+
+                    public void clas()
+                    {
+                        c1.clas();
+                    }
+                    public void cla2()
+                    {
+                        c2.cla2();
+                    }
+
+
+
+                    // delegate tutorial. delegate is a type safe pointer. It is just the same as function but has delegate infornt and can
+                    // also be used as a class e.g. 
+                    public delegate void DialNumber(int nus);
+
+                    public static void callMe(int number)
+                    {
+                        Console.WriteLine("dial my number" + number);
+                    }
+                    // //StreamReader uses system.io system, read message only 
+                    //StreamReader sr = new StreamReader(@"C:\Users\YOMMY\Documents\Body");
+                    //Console. sr.ReadToEnd();
+
+                    //  StreamWriter sw = new StreamWriter();
+
+                    public class ABC
+                    {
+
+                    }
+
+
+
+                    public class Program
+                    {
+                        static void Main(string[] args)
+                        {
+                            // delegate
+                            DialNumber o = new DialNumber(callMe);
+                            o(123);
+
+
+
+                            // multiple class inheritance using interface
+                            clas3 c = new clas3();
+                            c.clas();
+                            c.cla2();
+                            // interface
+                            K1 ki = new K1();
+                            ((IName)ki).nam();
+                            ((Ino)ki).nam();
+                            //     Another way of calling the instance of interface is 
+                            //K1 k2 = new K1();
+                            //k2.nam();
+                            //((Ino)k2).nam();
+                            createAccount create = new createAccount();
+                            create.username = "youandi";
+                            create.password = "Name";
+                            create.myAge = 23;
+                            create.setOpenAccount();
+
+                            createAccount create1 = new createAccount
+                            {
+                                myAge = 23,
+                                password = "treasure",
+                                username = "thisisme"
+                            };
+                            create1.setOpenAccount();
+                            // myRegister r = new myRegister();
+
+                            //properties
+                            Registration register = new Registration();
+                            register.setName("tto");
+                            register.setEmail("sdfjhkdhg");
+                            register.setAge(20);
+                            Console.WriteLine("my name is {0}, your email address is  {1} and age is {2}", register.getName(), register.getEmail(), register.getAge());
+
+                            //Polymorpherism
+                            Polymorphrism[] polymorphrism = new Polymorphrism[2];
+                            polymorphrism[0] = new PolymorphrismHerit();
+                            polymorphrism[1] = new Herit();
+                            foreach (Polymorphrism poly in polymorphrism)
+                            {
+                                //   poly.name();
+                               // Console.WriteLine("" + poly);
+                            }
+
+                            //
+                            Hidden h = new HiddenClass();
+                            h.hid();
+
+
+                            // inheritance
+                            //Landlord l = new Landlord();
+
+
+                            LandLady ld = new LandLady();
+                            //  ld.HouseOwnerDetails();
+
+                            // instance and instance tutorial called
+                            details d = new details("Yomi");
+                            string FullName = d.FullName();
+                            Console.WriteLine(FullName);
+                            Console.ReadLine();
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+    
+    
+
+
+
+            }
+        }
+    }
+}
